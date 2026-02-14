@@ -7,13 +7,14 @@ test('Login',async({page})=>{
     const loginpage = new LoginPage(page);
 
     await loginpage.navigateToLoginPage();
-    await loginpage.fillUserNmae("Rajesh");
-    await loginpage.fillPassword("Test@123");
+    await loginpage.openLoginpage();
+    await loginpage.fillUserNmae(process.env.username1!);
+    await loginpage.fillPassword(process.env.password!);
     
 
     const homePage= await loginpage.clickLoginButton();
 
-    homePage.expectPageTitleVisible();
+    homePage.expectPageLogoVisible();
 
 
 });

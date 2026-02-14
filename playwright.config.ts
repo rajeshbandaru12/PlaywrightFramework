@@ -1,12 +1,22 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices, } from '@playwright/test';
+import dotenv from 'dotenv';
+import path from 'path';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
+
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
+if (!process.env.NODE_ENV) {
+  require("dotenv").config({ path: `${__dirname}//src//config//.env.dev` });
+} else {
+  require("dotenv").config({
+    path: `${__dirname}//src//config//.env.${process.env.NODE_ENV}`,
+  });
+}
+
+
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -30,8 +40,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    baseURL :'https://parabank.parasoft.com/parabank/register.htm',
+    baseURL: process.env.URL!,
     screenshot:"on",
+    permissions: [],   // 👈 this blocks all permissions
+    
   },
 timeout:30000,
   /* Configure projects for major browsers */

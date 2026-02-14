@@ -3,10 +3,11 @@ import HomePage from "./HomePage";
 
 export default class LoginPage {
 
-    private readonly userNameInputSelector = '[name="username"]';
-    private readonly passwordInputSelector = '[name="password"]';
-    private readonly loginButtonSelector =  "//input[@value='Log In']";
-    private readonly remeberMwCheckLocator = '#rememberUn';
+    private readonly LoginlinkGetByText = 'Log in';
+    private readonly userNameInputGetByRole = "textbox";
+    private readonly passwordInputGetByRole = "textbox";
+    private readonly loginButtonLocator =  "//button[normalize-space()='Login']";
+   
 
 
     constructor(private page:Page){
@@ -18,21 +19,23 @@ export default class LoginPage {
 //   response.url() === 'https://parabank.parasoft.com/parabank/register.htm' && response.status() === 200
 //       && response.request().method() === 'GET'
 //         )           
-        await this.page.goto("/");
+        await this.page.goto("/",{ waitUntil: "domcontentloaded" });
+    }
+    async openLoginpage(){
+        await this.page.getByText(this.LoginlinkGetByText).click();
     }
     async fillUserNmae(userName : string){
-        await this.page.locator(this.userNameInputSelector).fill(userName);
+        //await this.page.locator(this.userNameInputLocator).waitFor({state:"visible"});
+        await this.page.getByRole(this.userNameInputGetByRole,{ name: 'Email' }).fill(userName);
 
     }
     async fillPassword(password:string){
-        await this.page.locator(this.passwordInputSelector).fill(password);
+        await this.page.getByRole(this.passwordInputGetByRole, { name: 'Password' }).fill(password);
     }
-    async checkRememberMe(){
-        await this.page.locator(this.remeberMwCheckLocator).click();
-    }
+    
     async clickLoginButton() {
         await this.page
-        .locator(this.loginButtonSelector)
+        .locator(this.loginButtonLocator)
         .click()
         .catch ((error) =>{
         console.error('Login button click failed:', error.message);
