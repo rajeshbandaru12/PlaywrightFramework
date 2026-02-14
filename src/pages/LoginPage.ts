@@ -1,5 +1,7 @@
 import { Page } from "@playwright/test";
 import HomePage from "./HomePage";
+import logger from "../utils/LoggerUtil";
+
 
 export default class LoginPage {
 
@@ -11,26 +13,19 @@ export default class LoginPage {
 
 
     constructor(private page:Page){
-
-    }
-    async navigateToLoginPage(){
-        // Alternative way with a predicate. Note no await.
-// const responsePromise = this.page.waitForResponse(response =>
-//   response.url() === 'https://parabank.parasoft.com/parabank/register.htm' && response.status() === 200
-//       && response.request().method() === 'GET'
-//         )           
-        await this.page.goto("/",{ waitUntil: "domcontentloaded" });
     }
     async openLoginpage(){
         await this.page.getByText(this.LoginlinkGetByText).click();
+        logger.info("Click on login lonk");
     }
     async fillUserNmae(userName : string){
         //await this.page.locator(this.userNameInputLocator).waitFor({state:"visible"});
         await this.page.getByRole(this.userNameInputGetByRole,{ name: 'Email' }).fill(userName);
-
+        logger.info("Enter userName");
     }
     async fillPassword(password:string){
         await this.page.getByRole(this.passwordInputGetByRole, { name: 'Password' }).fill(password);
+        logger.info("Enter Password");
     }
     
     async clickLoginButton() {
@@ -38,9 +33,10 @@ export default class LoginPage {
         .locator(this.loginButtonLocator)
         .click()
         .catch ((error) =>{
+        logger.error(`Error getting on login button: ${error}`)
         console.error('Login button click failed:', error.message);
         throw error; // re-throw so test fails properly
-    });
+    }).then(()=>logger.info("Click on login button"));
      const homePage = new HomePage(this.page);
      return homePage;
 }

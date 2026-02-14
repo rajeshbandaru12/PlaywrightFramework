@@ -1,0 +1,10 @@
+2026-02-14T12:58:16+05:30 [error]: Error getting on login button: Error: locator.click: SyntaxError: Failed to execute 'evaluate' on 'Document': The string '//button[normalize-space()='Login'].' is not a valid XPath expression.
+    at Object.queryAll (<anonymous>:6147:25)
+    at InjectedScript._queryEngineAll (<anonymous>:6847:49)
+    at InjectedScript.querySelectorAll (<anonymous>:6834:30)
+    at eval (eval at evaluate (:290:30), <anonymous>:2:35)
+    at UtilityScript.evaluate (<anonymous>:292:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+Call log:
+[2m  - waiting for locator('//button[normalize-space()=\'Login\'].')[22m
+

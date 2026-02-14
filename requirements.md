@@ -18,6 +18,21 @@ The enterprise test automation framework is designed to provide a robust, scalab
 ### 2.3 Logging
 
 - **Objective:** Provide comprehensive logs for detailed test execution analysis.
+                  
+                  Recording important information about what your test is doing while it runs.
+                  It helps you understand:
+
+                     What step executed
+
+                     What data was used
+
+                     Where it failed
+
+                     Why it failed
+
+                     In short:
+
+                     👉 Logging = Visibility into your test execution
 
 ### 2.4 Retry Mechanism
 

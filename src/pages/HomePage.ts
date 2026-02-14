@@ -1,8 +1,9 @@
 import { Page , expect} from "@playwright/test";
+import logger from "../utils/LoggerUtil";
 
 export default class HomePage {
 
-    private readonly LogoLocator = "//img[@src='/assets/sanctora_horizontal_logo.png']";
+    private readonly LogoLocator = 'link';
    
     
 
@@ -10,7 +11,8 @@ export default class HomePage {
 
 async expectPageLogoVisible(){
    
-     await expect(this.page.locator(this.LogoLocator)).toBeVisible({ timeout: 10000 });
+     await expect(this.page.getByRole(this.LogoLocator,{ name: 'Logo' })).toBeVisible({ timeout: 30000 });
+     logger.info("Logo in home page is visibale")
     }
 }
 // async openNewAccount(){
